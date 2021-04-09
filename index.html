@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="keywords" content="图标,字母图标生成器,图标生成,图标生成器,字母图标,手写字母ico,ico图标生成器">
+  <meta name="keywords"
+    content="favicon,favicon.ico,favicon生成器,字母favicon,字母favicon生成,,图标,字母图标生成器,图标生成,图标生成器,字母图标,手写字母ico,ico图标生成器">
   <meta name="author" content="queuecat.top">
   <meta name="description" content="字母图标生成器,用于生成包含一个字符的自定义图标" />
   <link rel="shortcut icon" href="./images/Q.ico" type="image/x-icon">
@@ -144,9 +145,10 @@
           ctx.fillStyle = this.backgroundColor;
           ctx.fill();
           ctx.fillStyle = this.fontColor;
-          ctx.font = "700 " + this.fontSize * 10 + "px Arial";
           ctx.textAlign = "center"
           ctx.textBaseline = "middle"
+          ctx.font = "700 " + this.fontSize * 10 + "px " + this.myBrowser;
+
           ctx.fillText(this.font, 100, 100)
           ctx.clip();
         },
@@ -164,6 +166,16 @@
         // 画笔
         this.draw();
       },
+      computed: {
+        myBrowser() {
+          var userAgent = navigator.userAgent;
+          if (userAgent.indexOf("Chrome") > -1 || userAgent.indexOf("Edge") > -1) {
+            return 'courier'
+          } else {
+            return 'Arial'
+          }
+        }
+      },
       watch: {
         backgroundColor: function () {
           this.draw();
@@ -175,7 +187,8 @@
           this.draw();
         },
       }
-    })
+    });
+    console.log("%c案例GitHub地址：https://github.com/queuecat/CharFavicon", "color:#0aa");
   </script>
 
 </body>
