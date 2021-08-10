@@ -34,10 +34,6 @@
 				width: 100%;
 				height: 100%;
 			}
-			@font-face {
-				font-family: 'en';
-				src: url('./font/font.ttf');
-			}
 			#app {
 				height: 100%;
 				/* background-color: aquamarine; */
@@ -163,54 +159,63 @@
 				},
 				methods: {
 					draw() {
-						let canvas = this.canvas
-						let ctx = canvas.getContext('2d')
-						ctx.clearRect(0, 0, 200, 200)
-						ctx.beginPath()
-						ctx.arc(100, 100, 100, 0, Math.PI * 2)
-						ctx.fillStyle = this.backgroundColor
-						ctx.fill()
-						ctx.fillStyle = this.fontColor
-						ctx.textAlign = 'center'
-						ctx.textBaseline = 'middle'
-						ctx.font = '700 ' + this.fontSize * 10 + 'px ' + 'en'
-						ctx.fillText(this.font, 100, 100)
-						ctx.clip()
+						let canvas = this.canvas;
+						let ctx = canvas.getContext('2d');
+						ctx.clearRect(0, 0, 200, 200);
+						ctx.beginPath();
+						ctx.arc(100, 100, 100, 0, Math.PI * 2);
+						ctx.fillStyle = this.backgroundColor;
+						ctx.fill();
+						ctx.fillStyle = this.fontColor;
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'middle';
+						ctx.font = '700 ' + this.fontSize * 10 + 'px ' + 'Arial';
+						const text = ctx.measureText(this.font);
+						if (text.actualBoundingBoxAscent && text.actualBoundingBoxDescent) {
+							ctx.fillText(
+								this.font,
+								100,
+								text.actualBoundingBoxAscent + text.actualBoundingBoxDescent
+							);
+						} else {
+							ctx.fillText(this.font, 100, 100);
+						}
+						ctx.clip();
 					},
 					download() {
-						let a = document.createElement('a')
-						a.download = this.font + (this.isPng ? '.png' : '.ico')
-						a.href = this.canvas.toDataURL()
-						a.click()
-						a.remove()
+						let a = document.createElement('a');
+						a.download = this.font + (this.isPng ? '.png' : '.ico');
+						a.href = this.canvas.toDataURL();
+						a.click();
+						a.remove();
 					},
 				},
 				mounted() {
 					//画布
-					this.canvas = document.querySelector('canvas')
+					this.canvas = document.querySelector('canvas');
 					// 画笔
-					this.draw()
+					this.draw();
 				},
 				watch: {
 					backgroundColor: function () {
-						this.draw()
+						this.draw();
 					},
 					font: function () {
-						this.draw()
+						this.draw();
 					},
 					fontColor: function () {
-						this.draw()
+						this.draw();
 					},
 				},
-			})
+			});
 			console.log(
 				'%c案例GitHub地址：https://github.com/queuecat/CharFavicon',
 				'color:#0aa'
-			)
+			);
 			// 字体加载事件
 			document.fonts.ready.then(function () {
-				vm.draw()
-			})
+				vm.draw();
+			});
 		</script>
 	</body>
 </html>
