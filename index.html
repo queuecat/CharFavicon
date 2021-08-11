@@ -168,16 +168,17 @@
 						ctx.fill();
 						ctx.fillStyle = this.fontColor;
 						ctx.textAlign = 'center';
-						ctx.textBaseline = 'middle';
+						ctx.textBaseline = 'alphabetic';
 						ctx.font = '700 ' + this.fontSize * 10 + 'px ' + 'Arial';
 						const text = ctx.measureText(this.font);
-						if (text.actualBoundingBoxAscent && text.actualBoundingBoxDescent) {
+						if (text.actualBoundingBoxAscent) {
 							ctx.fillText(
 								this.font,
 								100,
-								text.actualBoundingBoxAscent + text.actualBoundingBoxDescent
+								100 + text.actualBoundingBoxAscent / 2
 							);
 						} else {
+							ctx.textBaseline = 'middle';
 							ctx.fillText(this.font, 100, 100);
 						}
 						ctx.clip();
